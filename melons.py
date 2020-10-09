@@ -3,11 +3,11 @@
 class AbstractMelonOrder:
     """ An abstract base class that other Melon Orders inherit from"""
 
-    def __init__(self, p_species, p_qty):
+    def __init__(self, species, qty):
         """Initialize"""
 
-        self.species = p_species
-        self.qty = p_qty
+        self.species = species
+        self.qty = qty
         self.shipped = False
 
     def get_total(self):
@@ -24,13 +24,18 @@ class AbstractMelonOrder:
     
     def mark_shipped(self):
         """Record the fact than an order has been shipped."""
+
         self.shipped = True
 
 class GovernmentMelonOrder(AbstractMelonOrder):
+    """A melon order from the Government"""
+
     passed_inspection = False
     tax = 0
 
     def mark_inspection(self, passed):
+        """Determine if order has passed inspection"""
+
         self.passed_inspection = passed
         
 class DomesticMelonOrder(AbstractMelonOrder):
@@ -47,8 +52,10 @@ class InternationalMelonOrder(AbstractMelonOrder):
     order_type = "international"
     tax = 0.17 
     
-    def __init__(self, parameter_species, parameter_qty, country_code): #overwriting parent, but still need to call the parent 
-        super().__init__(parameter_species, parameter_qty) #how we are going to make species and quantity 
+    def __init__(self, species, qty, country_code): #overwriting parent, but still need to call the parent 
+        """Overwrite parent function initalization to add country code"""
+
+        super().__init__(species, qty) #how we are going to make species and quantity 
         self.country_code = country_code
 
     def get_country_code(self):
@@ -57,8 +64,11 @@ class InternationalMelonOrder(AbstractMelonOrder):
         return self.country_code
 
     def get_total(self):
+        """Overwrite parenrt's get_total() to 
+        account for fee on orders less than six"""
+        
+        total = super().get_total()
         if self.qty < 10:
-            total = super().get_total()
-            total = total + 3 
+            total = total + 3
 
         return total
