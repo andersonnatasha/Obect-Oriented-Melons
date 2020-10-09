@@ -1,6 +1,8 @@
 """Classes for melon orders."""
 
 class AbstractMelonOrder:
+    """ An abstract base class that other Melon Orders inherit from"""
+    
     def __init__(self, species):
         self.species = species
 
