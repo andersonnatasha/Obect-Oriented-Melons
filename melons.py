@@ -1,7 +1,7 @@
 """Classes for melon orders."""
 
 class AbstractMelonOrder:
-    def __init__(self, species)
+    def __init__(self, species):
         self.species = species
 
 class DomesticMelonOrder(AbstractMelonOrder):
